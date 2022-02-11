@@ -6,10 +6,7 @@ on:
   pull_request:
     branches: [ main, development]
 
-env:
-  DB_TEST_DATABASE: ${{secrets.DB_TEST_DATABASE}}
-  DB_TEST_USERNAME: ${{secrets.DB_TEST_USERNAME}}
-  DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+
 
 jobs:
   laravel-tests:
@@ -43,6 +40,10 @@ jobs:
 #        DB_TEST_DATABASE: test_db
 #        DB_TEST_USERNAME: root
 #        DB_TEST_PASSWORD: ${{secrets.DB_TEST_DATABASE}}
+      env:
+        DB_TEST_DATABASE: ${{secrets.DB_TEST_DATABASE}}
+        DB_TEST_USERNAME: ${{secrets.DB_TEST_USERNAME}}
+        DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
       run: |
             sudo /etc/init.d/mysql start
             mysql -e 'CREATE DATABASE ${{ env.DB_TEST_DATABASE }};' -u${{ env.DB_TEST_USERNAME }} -p${{ env.DB_TEST_PASSWORD }}
@@ -51,4 +52,8 @@ jobs:
 #        DB_TEST_DATABASE: test_db
 #        DB_TEST_USERNAME: root
 #        DB_TEST_PASSWORD: ${{secrets.DB_TEST_DATABASE}}
+      env:
+        DB_TEST_DATABASE: ${{secrets.DB_TEST_DATABASE}}
+        DB_TEST_USERNAME: ${{secrets.DB_TEST_USERNAME}}
+        DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
       run: vendor/bin/phpunit
