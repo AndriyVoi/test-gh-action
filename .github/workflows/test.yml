@@ -33,13 +33,13 @@ jobs:
 #        DB_CONNECTION: sqlite
 #        DB_DATABASE: database/database.sqlite
 
-    - name: Set up MySQL
-      env:
-        DB_TEST_DATABASE: test_db
-        DB_TEST_USERNAME: root
-        DB_TEST_PASSWORD: ${{ env.DB_TEST_PASSWORD }}
+    - name: Set up MySQL ${{ env.DB_TEST_PASSWORD}}
+#      env:
+#        DB_TEST_DATABASE: test_db
+#        DB_TEST_USERNAME: root
+#        DB_TEST_PASSWORD: ${{ env.DB_TEST_PASSWORD }}
       run: |
             sudo /etc/init.d/mysql start
-            mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+            mysql -e 'CREATE DATABASE ${{ env.DB_TEST_DATABASE }};' -u${{ env.DB_TEST_USERNAME }} -p${{ env.DB_TEST_PASSWORD }}
     - name: Execute tests
       run: vendor/bin/phpunit
