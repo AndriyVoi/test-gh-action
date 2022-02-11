@@ -53,7 +53,7 @@ jobs:
 #        DB_TEST_USERNAME: root
 #        DB_TEST_PASSWORD: ${{secrets.DB_TEST_DATABASE}}
       env:
-        DB_TEST_DATABASE: ${{secrets.DB_TEST_DATABASE}}
+        DB_TEST_DATABASE: test_db
         DB_TEST_USERNAME: ${{secrets.DB_TEST_USERNAME}}
         DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
       run: vendor/bin/phpunit
