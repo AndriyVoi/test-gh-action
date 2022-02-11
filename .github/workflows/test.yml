@@ -28,7 +28,7 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Set up MySQL
       env:
-#        DB_TEST_DATABASE: test_db
+        DB_TEST_DATABASE: test_db
         DB_TEST_USERNAME: ${{secrets.DB_TEST_USERNAME}}
         DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
       run: |
@@ -36,7 +36,7 @@ jobs:
             mysql -e 'CREATE DATABASE ${{ env.DB_TEST_DATABASE }};' -u${{ env.DB_TEST_USERNAME }} -p${{secrets.DB_TEST_PASSWORD}}
     - name: Execute tests
       env:
-#        DB_TEST_DATABASE: test_db
+        DB_TEST_DATABASE: test_db
         DB_TEST_USERNAME: ${{secrets.DB_TEST_USERNAME}}
         DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
       run: vendor/bin/phpunit
