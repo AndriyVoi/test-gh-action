@@ -2,19 +2,19 @@ name: Laravel
 
 on:
   push:
-    branches: [ master, dev]
+    branches: [ main, development]
   pull_request:
-    branches: [ master, dev]
+    branches: [ main, development]
 
 jobs:
-  laravel-tests-1:
+  tests:
 
     runs-on: ubuntu-latest
 
     steps:
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
-          php-version: '8.0'
+          php-version: '8.0.2'
       - uses: actions/checkout@v2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -27,14 +27,14 @@ jobs:
       - name: Set up MySQL
         env:
           DB_TEST_DATABASE: test_db
-          DB_TEST_USERNAME: ${{secrets.DB_TEST_USERNAME}}
-          DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+          DB_TEST_USERNAME: root
+          DB_TEST_PASSWORD: root
         run: |
           sudo /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE ${{ env.DB_TEST_DATABASE }};' -u${{ env.DB_TEST_USERNAME }} -p${{secrets.DB_TEST_PASSWORD}}
       - name: Execute tests
         env:
           DB_TEST_DATABASE: test_db
-          DB_TEST_USERNAME: ${{secrets.DB_TEST_USERNAME}}
-          DB_TEST_PASSWORD: ${{secrets.DB_TEST_PASSWORD}}
+          DB_TEST_USERNAME: root
+          DB_TEST_PASSWORD: root
         run: vendor/bin/phpunit
